@@ -41,7 +41,7 @@ class Objects(db.Model):
             "reduce": self.reduce
         }
     
-class ResourceCenters(db.Model):
+class Resource_Centers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     center_name = db.Column(db.String(200), nullable=False)
     address = db.Column(db.Integer, nullable=False)
@@ -54,7 +54,7 @@ class ResourceCenters(db.Model):
     types = db.Column(db.String(200), nullable=False)
 
 def __repr__(self):
-    return '<ResourceCenters %r>' % self.center_name
+    return '<Resource_Centers %r>' % self.center_name
 
 def serialize(self):
     return {

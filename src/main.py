@@ -28,9 +28,9 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
-@app.route('/users', methods="GET")
+@app.route('/users', methods=['GET'])
 def my_users():
-    if request.method == "GET":
+    if request.method == 'GET':
         users = Users.query.all()
         if not users:
             return jsonify({'msg': 'User not found'}), 404
@@ -47,6 +47,23 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@app.route('/add_user', methods=['POST'])
+def add_user():
+    if request.method == 'POST':
+        body = request.get_json()
+
+        db.session.add(Users(
+            first_name = body["first_name"],
+            last_name = body["last_name"],
+            email = body["email"],
+            password = body["password"],
+            zip = body["zip"]
+        ))
+        
+        db.sessiom.commit()
+        return jsonify({
+            'msg': 'User Added!'
+        })
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
