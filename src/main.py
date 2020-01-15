@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
-from models import db
+from models import db, Users, Objects, Resource_Centers
 #from models import Person
 
 app = Flask(__name__)
@@ -27,6 +27,16 @@ def handle_invalid_usage(error):
 @app.route('/')
 def sitemap():
     return generate_sitemap(app)
+
+@app.route('/users', methods="GET")
+def my_users():
+    if request.method == "GET":
+        users = Users.query.all()
+        if not users:
+            return jsonify({'msg': 'User not found'}), 404
+
+        return jsonify( [x.serialize() for x in users] ), 200
+
 
 @app.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
