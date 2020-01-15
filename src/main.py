@@ -60,7 +60,7 @@ def add_user():
             zip = body["zip"]
         ))
         
-        db.sessiom.commit()
+        db.session.commit()
         return jsonify({
             'msg': 'User Added!'
         })
