@@ -60,10 +60,27 @@ def add_user():
             zip = body["zip"]
         ))
         
-        db.session.commit()
+        db.sessions.commit()
         return jsonify({
             'msg': 'User Added!'
         })
+
+@app.route('/edit_user', methods=['PUT'])
+def edit_user():
+    body = request.get_json()
+    if request.method == 'PUT':
+        first_name = body["first_name"],
+        last_name = body["last_name"],
+        email = body["email"],
+        password = body["password"],
+        zip = body["zip"]
+
+        db.sessions.commit()
+        return jsonify({
+            'msg': 'Info Updated!'
+        })
+        
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
